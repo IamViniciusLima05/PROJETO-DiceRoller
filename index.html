@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DiceRoller | Rolador de dados</title>
+  <meta name="description" content="Role dados de 4 a 100 lados com animação, escreva fórmulas como 2d6+3, segure dados, use vantagem e veja o histórico das jogadas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="mesa">
+    <header class="topo">
+      <h1 class="marca">Dice<span>Roller</span></h1>
+      <label class="som"><input type="checkbox" id="som" checked> 🔊 Som</label>
+    </header>
+
+    <section class="escolha" aria-label="Escolher dados">
+      <div class="tipos" id="tipos"></div>
+      <form class="formula" id="form-formula" autocomplete="off">
+        <input id="formula" placeholder="Fórmula: 2d6+3, d20, 4d6k3…" aria-label="Fórmula de dados" spellcheck="false">
+        <button class="btn">Rolar</button>
+      </form>
+      <div class="modos" role="group" aria-label="Modo do d20">
+        <button data-modo="normal" aria-pressed="true">Normal</button>
+        <button data-modo="vantagem" aria-pressed="false">Vantagem</button>
+        <button data-modo="desvantagem" aria-pressed="false">Desvantagem</button>
+      </div>
+    </section>
+
+    <section class="pano" id="pano" aria-live="polite">
+      <div class="dados" id="dados"></div>
+      <p class="vazio" id="vazio">Toque num dado acima para colocá-lo na mesa.</p>
+      <div class="total" id="total" hidden><span id="total-det"></span><b id="total-v">0</b></div>
+    </section>
+
+    <div class="acoes">
+      <button class="btn grande" id="rolar" disabled>🎲 Rolar</button>
+      <button class="btn ghost" id="limpar" disabled>Limpar mesa</button>
+    </div>
+    <p class="dica">Toque num dado na mesa para <b>segurá-lo</b> (ele não rola de novo). Espaço também rola.</p>
+
+    <section class="hist">
+      <header><h2>Histórico</h2><button class="link" id="limpar-hist">Limpar</button></header>
+      <ol id="historico"></ol>
+      <div class="stats" id="stats"></div>
+    </section>
+  </main>
+  <script src="js/script.js"></script>
+</body>
+</html>

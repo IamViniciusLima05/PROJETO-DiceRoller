@@ -1,0 +1,70 @@
+/* DiceRoller — mesa de feltro verde e dados coloridos por tipo */
+:root { --feltro: #0f5132; --feltro2: #0b3d26; --madeira: #3b2416; --texto: #f6efe3; --suave: #b9c9bd; --ouro: #f2c14e; --vermelho: #e5484d; }
+[hidden] { display: none !important; }
+* { box-sizing: border-box; min-width: 0; }
+html { background: var(--madeira); }
+body { margin: 0; color: var(--texto); font: 15px/1.5 "Inter", system-ui, sans-serif; background: repeating-linear-gradient(90deg, #3b2416 0 40px, #36200f 40px 80px); min-height: 100vh; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--ouro); outline-offset: 2px; }
+.mesa { width: min(820px, 100%); margin: 0 auto; padding: 20px 16px 48px; display: flex; flex-direction: column; gap: 14px; }
+.topo { display: flex; justify-content: space-between; align-items: center; }
+.marca { margin: 0; font: 800 32px "Cinzel", Georgia, serif; letter-spacing: 1px; }
+.marca span { color: var(--ouro); }
+.som { font-size: 14px; color: var(--suave); display: flex; gap: 6px; align-items: center; cursor: pointer; }
+
+.escolha { background: rgba(0, 0, 0, .25); border-radius: 18px; padding: 12px; display: grid; gap: 10px; }
+.tipos { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.tipo { border: 0; border-radius: 14px; padding: 8px 0 6px; cursor: pointer; background: var(--c); color: #fff; font-weight: 800; display: grid; justify-items: center; gap: 2px; box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .25); transition: transform .1s; }
+.tipo:active { transform: translateY(2px); }
+.tipo svg { width: 34px; height: 34px; }
+.tipo small { font-size: 13px; }
+.formula { display: flex; gap: 8px; }
+.formula input { flex: 1; border: 0; border-radius: 12px; padding: 10px 14px; background: rgba(255, 255, 255, .92); color: #1b1b1b; font-weight: 600; }
+.modos { display: flex; gap: 6px; justify-content: center; }
+.modos button { border: 1px solid rgba(255, 255, 255, .2); background: none; border-radius: 999px; padding: 4px 14px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--suave); }
+.modos [aria-pressed="true"] { background: var(--ouro); color: #2b1b07; border-color: var(--ouro); }
+
+.pano { position: relative; min-height: 290px; border-radius: 26px; background: radial-gradient(ellipse at center, #17784a 0%, var(--feltro) 55%, var(--feltro2) 100%); border: 12px solid #5a361f; box-shadow: inset 0 0 50px rgba(0, 0, 0, .5), 0 16px 30px rgba(0, 0, 0, .4); padding: 24px 18px 70px; }
+.dados { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.dado { position: relative; width: 76px; height: 76px; border: 0; padding: 0; background: none; cursor: pointer; filter: drop-shadow(0 6px 6px rgba(0, 0, 0, .45)); }
+.dado svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dado b { position: relative; z-index: 1; display: grid; place-items: center; height: 100%; font: 800 26px "Inter", sans-serif; color: #fff; text-shadow: 0 2px 2px rgba(0, 0, 0, .35); }
+.dado small { position: absolute; z-index: 1; left: 0; right: 0; bottom: -18px; text-align: center; font-size: 11px; color: var(--suave); font-weight: 700; }
+.dado.rolando { animation: rolar .55s cubic-bezier(.3, .7, .4, 1); }
+@keyframes rolar { 0% { transform: translate(var(--dx), -60px) rotate(-260deg) scale(.7); } 70% { transform: translate(0, 4px) rotate(12deg) scale(1.05); } 100% { transform: none; } }
+.dado.preso { outline: 3px dashed var(--ouro); outline-offset: 6px; border-radius: 12px; }
+.dado.preso::after { content: "🔒"; position: absolute; top: -12px; right: -10px; font-size: 16px; z-index: 2; }
+.dado.descartado { opacity: .35; }
+.dado.critico b { color: var(--ouro); }
+.dado.falha b { color: #ffb3b3; }
+.vazio { text-align: center; color: var(--suave); margin: 80px 0 0; }
+.total { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: rgba(0, 0, 0, .45); border-radius: 999px; padding: 6px 8px 6px 18px; display: flex; align-items: center; gap: 12px; white-space: nowrap; max-width: calc(100% - 24px); }
+.total span { font-size: 13px; color: var(--suave); overflow: hidden; text-overflow: ellipsis; }
+.total b { background: var(--ouro); color: #2b1b07; border-radius: 999px; min-width: 52px; padding: 2px 14px; text-align: center; font: 800 26px "Cinzel", serif; }
+.total.pop b { animation: pop .35s; }
+@keyframes pop { 50% { transform: scale(1.25); } }
+
+.acoes { display: flex; gap: 10px; justify-content: center; }
+.btn { border: 0; background: var(--ouro); color: #2b1b07; font-weight: 800; padding: 10px 18px; border-radius: 12px; cursor: pointer; box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .2); }
+.btn.grande { font-size: 18px; padding: 14px 40px; }
+.btn.ghost { background: rgba(255, 255, 255, .1); color: var(--texto); box-shadow: none; }
+.btn:disabled { opacity: .4; cursor: default; }
+.dica { text-align: center; color: var(--suave); font-size: 13px; margin: 0; }
+.dica b { color: var(--texto); }
+
+.hist { background: rgba(0, 0, 0, .25); border-radius: 18px; padding: 14px 16px; }
+.hist header { display: flex; justify-content: space-between; align-items: center; }
+.hist h2 { margin: 0; font: 800 18px "Cinzel", serif; }
+.link { border: 0; background: none; color: var(--ouro); cursor: pointer; font-weight: 600; }
+#historico { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; max-height: 240px; overflow-y: auto; }
+#historico li { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid rgba(255, 255, 255, .08); padding: 4px 0; font-size: 14px; }
+#historico li span { color: var(--suave); overflow-wrap: anywhere; }
+#historico li b { font-family: "Cinzel", serif; color: var(--ouro); }
+.stats { font-size: 13px; color: var(--suave); margin-top: 8px; }
+@media (max-width: 560px) {
+  .tipos { grid-template-columns: repeat(4, 1fr); }
+  .dado { width: 62px; height: 62px; }
+  .dado b { font-size: 22px; }
+  .pano { border-width: 8px; min-height: 240px; }
+}
+@media (prefers-reduced-motion: reduce) { .dado.rolando { animation: none; } }
